@@ -1,8 +1,36 @@
+<div align="center">
+
 # Customer Segmentation & Churn Prediction
 
-An end-to-end analytics project on the IBM Telco customer churn data (7,043 customers): SQL analysis, customer segmentation, a leakage-safe churn model, statistical uncertainty quantification, survival analysis, an interactive dashboard and an executive summary with segment-specific retention recommendations.
+**An end-to-end analytics project: SQL → segmentation → leakage-safe modeling → statistical rigor → business recommendations**
 
-**Business question.** 26.5% of customers have churned, costing **$139K of monthly revenue (30.5% of the base, ~$1.7M a year)**. Who should a limited retention budget target, with what, and how sure are we?
+![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-pipelines-F7931E?logo=scikitlearn&logoColor=white)
+![Streamlit](https://img.shields.io/badge/dashboard-streamlit-FF4B4B?logo=streamlit&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQL-SQLite-07405E?logo=sqlite&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-complete-success)
+
+</div>
+
+---
+
+On the IBM Telco customer churn dataset (7,043 customers): SQL analysis, customer segmentation, a leakage-safe churn model, statistical uncertainty quantification, survival analysis, an interactive dashboard, and an executive summary with segment-specific retention recommendations.
+
+> **Business question.** 26.5% of customers have churned, costing **$139K of monthly revenue (30.5% of the base, ~$1.7M a year)**. Who should a limited retention budget target, with what, and how sure are we?
+
+## Contents
+- [Headline results](#headline-results)
+- [Repository structure](#repository-structure)
+- [Reproduce](#reproduce)
+- [What each notebook does](#what-each-notebook-does)
+- [Segments](#segments-notebook-04)
+- [Model performance](#model-performance-notebook-05-held-out-test-set-of-1409-customers)
+- [Dashboard and executive summary](#dashboard-and-executive-summary)
+- [Design decisions worth knowing](#design-decisions-worth-knowing)
+- [Limitations](#limitations)
+- [Tech stack](#tech-stack)
+- [Data source & license](#data-source--license)
 
 ## Headline results
 - **Month-to-month contracts churn at 42.7%** vs 2.8% on two-year plans and account for **87% of lost revenue**. Median month-to-month customer lifetime is **35 months**.
@@ -17,14 +45,17 @@ An end-to-end analytics project on the IBM Telco customer churn data (7,043 cust
 
 ## Repository structure
 ```
-data/        telco.csv (raw), telco_clean.csv, segments.csv, test_predictions.csv  (telco.db is rebuilt, git-ignored)
-sql/         queries.sql                      8 stakeholder queries (joins, CTEs, RANK, NTILE, running SUM)
-src/         clean.py build_db.py run_queries.py eda.py segment.py models.py stats_utils.py
-notebooks/   01_cleaning  02_sql_layer  03_eda  04_segmentation  05_modeling  06_statistics
-app/         dashboard.py                     Streamlit dashboard
-reports/     executive_summary.md / .pdf, sql_results.md, figures/ (16 charts)
-models/      logreg_churn.joblib, thresholds.json
-run_all.sh   rebuilds everything from the raw CSV
+.
+├── data/          telco.csv (raw), telco_clean.csv, segments.csv, test_predictions.csv
+│                  (telco.db is rebuilt by src/build_db.py and is git-ignored)
+├── sql/           queries.sql — 8 stakeholder queries (joins, CTEs, RANK, NTILE, running SUM)
+├── src/           clean.py · build_db.py · run_queries.py · eda.py · segment.py · models.py · stats_utils.py
+├── notebooks/     01_cleaning · 02_sql_layer · 03_eda · 04_segmentation · 05_modeling · 06_statistics
+├── app/           dashboard.py — interactive Streamlit app
+├── reports/       executive_summary.md / .pdf, sql_results.md, figures/ (16 charts)
+├── models/        logreg_churn.joblib, thresholds.json
+├── requirements.txt
+└── run_all.sh     rebuilds everything from the raw CSV, end to end
 ```
 
 ## Reproduce
@@ -47,8 +78,8 @@ All random seeds are fixed, so numbers reproduce exactly.
 
 ## Segments (notebook 04)
 | Segment | % customers | Churn rate | % of lost monthly revenue |
-|---|---|---|---|
-| At-risk fiber, month-to-month | 27.8% | 56.6% | 68.1% |
+|---|:---:|:---:|:---:|
+| **At-risk fiber, month-to-month** | 27.8% | **56.6%** | **68.1%** |
 | Mid-tier DSL, month-to-month | 21.4% | 27.6% | 14.0% |
 | Loyal premium | 28.9% | 11.4% | 16.2% |
 | Budget phone-only | 21.9% | 7.3% | 1.7% |
@@ -59,13 +90,13 @@ All random seeds are fixed, so numbers reproduce exactly.
 
 ## Model performance (notebook 05, held-out test set of 1,409 customers)
 | Metric | Logistic regression | Gradient boosting |
-|---|---|---|
-| ROC-AUC | 0.839 | 0.840 |
+|---|:---:|:---:|
+| ROC-AUC | **0.839** | 0.840 |
 | PR-AUC | 0.628 | 0.659 |
 | Recall / precision (threshold tuned on train out-of-fold predictions) | 74% / 52% | 74% / 54% |
 | Accuracy (do-nothing baseline 73.5%, catches 0% of churners) | 75.2% | 76.3% |
 
-A paired bootstrap shows no ROC-AUC difference between the models but a small PR-AUC edge for gradient boosting (+0.03, CI 0.007-0.054). Logistic regression is the primary model for interpretability.
+A paired bootstrap shows no ROC-AUC difference between the models but a small PR-AUC edge for gradient boosting (+0.03, CI 0.007-0.054). Logistic regression is the primary model, for interpretability.
 
 <p align="center">
   <img src="reports/figures/09_roc_pr.png" width="49%" />
@@ -77,8 +108,8 @@ A paired bootstrap shows no ROC-AUC difference between the models but a small PR
 </p>
 
 ## Dashboard and executive summary
-- `app/dashboard.py` (Streamlit): KPI cards; churn by segment, contract, tenure and payment method with sidebar filters; revenue-at-risk table; a targeting simulator (choose the share of customers to contact and see churners reached, precision and churned revenue captured); driver and survival charts.
-- `reports/executive_summary.md` / `.pdf`: findings and three segment-specific retention recommendations, each framed as an A/B test with a break-even rule.
+- **`app/dashboard.py`** (Streamlit): KPI cards; churn by segment, contract, tenure and payment method with sidebar filters; revenue-at-risk table; a targeting simulator (choose the share of customers to contact and see churners reached, precision and churned revenue captured); driver and survival charts.
+- **`reports/executive_summary.md`** / **`.pdf`**: findings and three segment-specific retention recommendations, each framed as an A/B test with a break-even rule.
 
 ## Design decisions worth knowing
 - **Imbalance (2.8:1):** compared no handling, class weights and SMOTE inside the CV folds; SMOTE added nothing (and slightly hurt the random forest), so class weights are used. The threshold is tuned on training out-of-fold predictions, never on the test set.
@@ -96,3 +127,7 @@ A paired bootstrap shows no ROC-AUC difference between the models but a small PR
 
 ## Tech stack
 Python (pandas, NumPy, scikit-learn, imbalanced-learn, SciPy, statsmodels, lifelines), SQLite, matplotlib/seaborn, Streamlit/Altair, Jupyter.
+
+## Data source & license
+Data: [IBM Telco Customer Churn dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) (7,043 customers, publicly available for educational/demonstration use).
+Code is released under the [MIT License](LICENSE).
