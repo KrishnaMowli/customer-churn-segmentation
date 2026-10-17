@@ -6,6 +6,8 @@
   ![CI](https://github.com/KrishnaMowli/customer-churn-segmentation/actions/workflows/ci.yml/badge.svg)
   ![License](https://img.shields.io/badge/license-MIT-green)
   ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
+
+  ### 🔗 [**Live interactive dashboard**](https://customer-churn-segmentation-brwjvzibugtksqfmaefzh8.streamlit.app/)
 </div>
 
 ---
@@ -103,6 +105,7 @@ A paired bootstrap shows no ROC-AUC difference between the models but a small PR
 </p>
 
 ## Dashboard and executive summary
+- **Live:** [customer-churn-segmentation-brwjvzibugtksqfmaefzh8.streamlit.app](https://customer-churn-segmentation-brwjvzibugtksqfmaefzh8.streamlit.app/)
 - **`app/dashboard.py`** (Streamlit): KPI cards; churn by segment, contract, tenure and payment method with sidebar filters; revenue-at-risk table; a targeting simulator (choose the share of customers to contact and see churners reached, precision and churned revenue captured); driver and survival charts.
 - **`reports/executive_summary.md`** / **`.pdf`**: findings and three segment-specific retention recommendations, each framed as an A/B test with a break-even rule.
 
