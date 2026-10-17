@@ -1,0 +1,50 @@
+<svg width="1200" height="260" viewBox="0 0 1200 260" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b2838"/>
+      <stop offset="100%" stop-color="#0f1620"/>
+    </linearGradient>
+    <linearGradient id="bar1" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#4C78A8"/>
+      <stop offset="100%" stop-color="#6fa0d6"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#E4572E"/>
+      <stop offset="100%" stop-color="#ef7c53"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="260" fill="url(#bg)"/>
+
+  <!-- subtle grid lines -->
+  <g stroke="#2a3a4d" stroke-width="1">
+    <line x1="0" y1="60" x2="1200" y2="60"/>
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+  </g>
+
+  <!-- abstract declining retention curve (right side) -->
+  <g transform="translate(760,40)">
+    <polyline points="0,40 40,55 80,75 120,100 160,130 200,165" fill="none" stroke="#6fa0d6" stroke-width="3" opacity="0.85"/>
+    <polyline points="0,40 40,45 80,52 120,60 160,70 200,82" fill="none" stroke="#E4572E" stroke-width="3" opacity="0.85"/>
+  </g>
+
+  <!-- small bar cluster (segments motif) -->
+  <g transform="translate(980,150)">
+    <rect x="0"  y="30" width="22" height="60" rx="3" fill="url(#bar2)"/>
+    <rect x="32" y="50" width="22" height="40" rx="3" fill="url(#bar1)"/>
+    <rect x="64" y="65" width="22" height="25" rx="3" fill="url(#bar1)" opacity="0.8"/>
+    <rect x="96" y="75" width="22" height="15" rx="3" fill="url(#bar1)" opacity="0.6"/>
+  </g>
+
+  <!-- text -->
+  <text x="60" y="110" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="46" font-weight="700" fill="#f2f5f8">
+    Customer Segmentation
+  </text>
+  <text x="60" y="160" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="46" font-weight="700" fill="#f2f5f8">
+    &amp; Churn Prediction
+  </text>
+  <text x="62" y="196" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" fill="#9fb3c8">
+    SQL · Segmentation · Leakage-safe ML · Bootstrap &amp; Survival Statistics · Streamlit Dashboard
+  </text>
+</svg>

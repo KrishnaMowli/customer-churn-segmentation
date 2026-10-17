@@ -1,16 +1,10 @@
 <div align="center">
+  <img src="assets/banner.svg" width="100%" alt="Customer Segmentation & Churn Prediction" />
 
-# Customer Segmentation & Churn Prediction
+  <br/>
 
-**An end-to-end analytics project: SQL → segmentation → leakage-safe modeling → statistical rigor → business recommendations**
-
-![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-pipelines-F7931E?logo=scikitlearn&logoColor=white)
-![Streamlit](https://img.shields.io/badge/dashboard-streamlit-FF4B4B?logo=streamlit&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQL-SQLite-07405E?logo=sqlite&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Status](https://img.shields.io/badge/status-complete-success)
-
+  ![License](https://img.shields.io/badge/license-MIT-green)
+  ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
 </div>
 
 ---
