@@ -3,6 +3,7 @@
 
   <br/>
 
+  ![CI](https://github.com/KrishnaMowli/customer-churn-segmentation/actions/workflows/ci.yml/badge.svg)
   ![License](https://img.shields.io/badge/license-MIT-green)
   ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
 </div>

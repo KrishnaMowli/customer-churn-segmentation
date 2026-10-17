@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Import check (all src modules load cleanly)
+        run: |
+          python -c "import src.clean, src.build_db, src.run_queries, src.eda, src.segment, src.models, src.stats_utils"
+
+      - name: Run the cleaning -> SQLite -> SQL-queries pipeline end-to-end
+        run: |
+          python src/clean.py
+          python src/build_db.py
+          python src/run_queries.py > /dev/null
