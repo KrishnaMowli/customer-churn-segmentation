@@ -1,0 +1,16 @@
+pandas
+numpy
+scipy
+scikit-learn
+imbalanced-learn
+statsmodels
+lifelines
+matplotlib
+seaborn
+tabulate
+joblib
+nbformat
+nbconvert
+ipykernel
+streamlit>=1.50
+altair
