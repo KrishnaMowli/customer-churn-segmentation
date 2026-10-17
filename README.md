@@ -10,6 +10,11 @@ An end-to-end analytics project on the IBM Telco customer churn data (7,043 cust
 - **Held-out ROC-AUC 0.839 (95% CI 0.815-0.860).** Contacting the **top 20% by predicted risk reaches 50% of churners (CI 45.7-54.0%) at 2.5x lift over random targeting (CI 2.3-2.7)** and 56% of churned revenue.
 - Contract, tenure and internet service drive predictions; logistic coefficients, permutation importance and a Cox survival model agree.
 
+<p align="center">
+  <img src="reports/figures/03_churn_by_contract.png" width="49%" />
+  <img src="reports/figures/05_churn_heatmap_tenure_contract.png" width="49%" />
+</p>
+
 ## Repository structure
 ```
 data/        telco.csv (raw), telco_clean.csv, segments.csv, test_predictions.csv  (telco.db is rebuilt, git-ignored)
@@ -48,6 +53,10 @@ All random seeds are fixed, so numbers reproduce exactly.
 | Loyal premium | 28.9% | 11.4% | 16.2% |
 | Budget phone-only | 21.9% | 7.3% | 1.7% |
 
+<p align="center">
+  <img src="reports/figures/08_segments.png" width="60%" />
+</p>
+
 ## Model performance (notebook 05, held-out test set of 1,409 customers)
 | Metric | Logistic regression | Gradient boosting |
 |---|---|---|
@@ -57,6 +66,15 @@ All random seeds are fixed, so numbers reproduce exactly.
 | Accuracy (do-nothing baseline 73.5%, catches 0% of churners) | 75.2% | 76.3% |
 
 A paired bootstrap shows no ROC-AUC difference between the models but a small PR-AUC edge for gradient boosting (+0.03, CI 0.007-0.054). Logistic regression is the primary model for interpretability.
+
+<p align="center">
+  <img src="reports/figures/09_roc_pr.png" width="49%" />
+  <img src="reports/figures/10_lift.png" width="49%" />
+</p>
+<p align="center">
+  <img src="reports/figures/11_odds_ratios.png" width="49%" />
+  <img src="reports/figures/15_kaplan_meier.png" width="49%" />
+</p>
 
 ## Dashboard and executive summary
 - `app/dashboard.py` (Streamlit): KPI cards; churn by segment, contract, tenure and payment method with sidebar filters; revenue-at-risk table; a targeting simulator (choose the share of customers to contact and see churners reached, precision and churned revenue captured); driver and survival charts.
